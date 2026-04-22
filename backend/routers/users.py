@@ -45,45 +45,28 @@ class TokenResponse(BaseModel):
 @router.post("/register", response_model=TokenResponse, status_code=201)
 def register(req: RegisterRequest, db: Session = Depends(get_db)):
     """Register a new account with email + password."""
-    print(f"[AUTH] Attempting registration for: {req.email}")
-    try:
-        if db.query(User).filter(User.email == req.email).first():
-            print(f"[AUTH] Email already registered: {req.email}")
-            raise HTTPException(status_code=400, detail="Email already registered")
+    if db.query(User).filter(User.email == req.email).first():
+        raise HTTPException(status_code=400, detail="Email already registered")
 
-        print("[AUTH] Creating new user instance...")
-        user = User(
-            email=req.email,
-            password_hash=get_password_hash(req.password),
-            full_name=req.full_name,
-        )
-        print("[AUTH] Adding user to DB...")
-        db.add(user)
-        print("[AUTH] Committing session...")
-        db.commit()
-        print("[AUTH] Refreshing user...")
-        db.refresh(user)
+    user = User(
+        email=req.email,
+        password_hash=get_password_hash(req.password),
+        full_name=req.full_name,
+    )
+    db.add(user)
+    db.commit()
+    db.refresh(user)
 
-        print("[AUTH] Creating access token...")
-        token = create_access_token({"sub": user.id})
-        print(f"[AUTH] Registration successful for {req.email}")
-        
-        return TokenResponse(
-            access_token=token,
-            user=UserOut(
-                id=user.id,
-                email=user.email,
-                full_name=user.full_name,
-                created_at=user.created_at.isoformat(),
-            ),
-        )
-    except HTTPException:
-        raise
-    except Exception as e:
-        import traceback
-        print(f"[AUTH] Registration CRASHED: {e}")
-        traceback.print_exc()
-        raise HTTPException(status_code=500, detail=f"Database error: {str(e)}")
+    token = create_access_token({"sub": user.id})
+    return TokenResponse(
+        access_token=token,
+        user=UserOut(
+            id=user.id,
+            email=user.email,
+            full_name=user.full_name,
+            created_at=user.created_at.isoformat(),
+        ),
+    )
 
 
 @router.post("/login", response_model=TokenResponse)

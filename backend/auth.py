@@ -41,16 +41,10 @@ def get_key_prefix(key: str) -> str:
 
 def verify_password(plain: str, hashed: str) -> bool:
     if not hashed:
-        print("[AUTH] Error: Password hash is missing")
         return False
     try:
-        # bcrypt.checkpw expects strictly bytes
-        result = bcrypt.checkpw(plain.encode('utf-8'), hashed.encode('utf-8'))
-        if not result:
-            print(f"[AUTH] Password mismatch for provided hash")
-        return result
-    except Exception as e:
-        print(f"[AUTH] Error during password verification: {e}")
+        return bcrypt.checkpw(plain.encode('utf-8'), hashed.encode('utf-8'))
+    except Exception:
         return False
 
 def get_password_hash(password: str) -> str:
