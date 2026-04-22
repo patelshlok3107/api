@@ -1,0 +1,51 @@
+# VRISH API Platform — Git Ignore
+
+# ── Secrets & Environment ──────────────────────────────────────────────────
+.env
+*.env
+backend/.env
+backend/.env.example
+
+# ── Databases ─────────────────────────────────────────────────────────────
+*.db
+vrish.db
+vrish.db.bak
+backend/vrish.db*
+
+# ── Node.js / Frontend ────────────────────────────────────────────────────
+frontend/node_modules/
+node_modules/
+frontend/dist/
+frontend/.next/
+frontend/build/
+.eslintcache
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ── Python / Backend ──────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+backend/__pycache__/
+backend/.venv/
+venv/
+ENV/
+env/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# ── System / IDE ──────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+*.bak
+*.tmp
+.DS_Store
+
+# ── Artifacts & Logs ──────────────────────────────────────────────────────
+.system_generated/
+*.log
