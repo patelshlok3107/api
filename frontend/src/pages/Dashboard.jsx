@@ -11,13 +11,13 @@ import { useAuth } from '../context/AuthContext'
 import toast from 'react-hot-toast'
 import axios from 'axios'
 
-const API_BASE = 'http://localhost:8000'
+// API_BASE is handled by useAuth or environment variables
 
 // Mock Data for the beautiful gold chart
 // Real-time usage data is fetched from the backend and stored in the 'stats' state.
 
 export default function Dashboard() {
-  const { user, token, api, logout } = useAuth()
+  const { user, token, api, logout, API_BASE } = useAuth()
   const navigate = useNavigate()
   
   const [keys, setKeys] = useState([])

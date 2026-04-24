@@ -20,7 +20,7 @@ function buildSnippets(key = 'vrish_sk_YOUR_KEY') {
     Python: `import requests
 
 response = requests.post(
-    "http://localhost:8000/v1/chat/completions",
+    "${import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000'}/v1/chat/completions",
     headers={
         "Authorization": "Bearer ${key}",
         "Content-Type": "application/json",
@@ -36,7 +36,7 @@ response = requests.post(
 print(response.json()["choices"][0]["message"]["content"])`,
 
     JavaScript: `const response = await fetch(
-  "http://localhost:8000/v1/chat/completions",
+  "${import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000'}/v1/chat/completions",
   {
     method: "POST",
     headers: {

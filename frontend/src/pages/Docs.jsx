@@ -160,7 +160,7 @@ export default function Docs() {
           <p style={{ color: 'var(--text-secondary)', fontSize: 16, maxWidth: 600, lineHeight: 1.6 }}>
             The VRISH API is OpenAI-compatible. Base URL:{' '}
             <code style={{ fontFamily: 'JetBrains Mono, monospace', color: 'var(--primary-light)', fontSize: 14 }}>
-              http://localhost:8000
+              {import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000'}
             </code>
           </p>
         </motion.div>
@@ -310,7 +310,7 @@ export default function Docs() {
         {/* Swagger link */}
         <div style={{ textAlign: 'center', marginTop: 48 }}>
           <a
-            href="http://localhost:8000/docs"
+            href={`${import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000'}/docs`}
             target="_blank"
             rel="noopener noreferrer"
             className="btn btn-secondary"
