@@ -88,10 +88,10 @@ export default function Dashboard() {
 
 
   const TopBar = () => (
-    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '32px' }}>
+    <div className="dash-top-bar" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '32px', flexWrap: 'wrap', gap: '16px' }}>
       <h1 style={{ fontSize: '24px', fontWeight: 700 }}>Platform Overview</h1>
       
-      <div style={{ display: 'flex', alignItems: 'center', gap: '24px' }}>
+      <div className="dash-top-actions" style={{ display: 'flex', alignItems: 'center', gap: '16px', flexWrap: 'wrap' }}>
         <div style={{ position: 'relative' }}>
           <Search size={16} style={{ position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)', color: '#a1a1aa' }} />
           <input 
